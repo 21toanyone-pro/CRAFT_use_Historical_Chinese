@@ -37,3 +37,9 @@ make_labeling.py를 통해 얻은 값으로 각 글자별로 자름
 ## img_post.py
 
 그외 필요한 작업물들
+
+
+
+## 생성한 데이터
+
+https://drive.google.com/drive/my-drive
