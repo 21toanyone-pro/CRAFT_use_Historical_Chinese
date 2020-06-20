@@ -8,15 +8,18 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 ## CRAFT만 단독으로 사용하였을 경우 문제점
 ![이미지2](/image/noname02.png)
 ![이미지3](/image/noname03.png)
-\n글자가 일부 잘리거나 합쳐져서 검출
+
+글자가 일부 잘리거나 합쳐져서 검출
 
 
 ![이미지4](/image/noname04.png)
-\n이미지 합성을 통해 잘리는 부분을 최소화
+
+이미지 합성을 통해 잘리는 부분을 최소화
 
 ## CRAFT와 커스텀한 것의 차이
 ![이미지4](/image/noname05.png)
-\n좀 더 잘 잡아내는 모습
+
+좀 더 잘 잡아내는 모습
 
 
 ## make_labeling.py
