@@ -16,6 +16,10 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
 
+```
+python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
+```
+
 ## CRAFT만 단독으로 사용하였을 경우 문제점
 ![이미지2](/image/noname02.png)
 ![이미지3](/image/noname03.png)
@@ -32,30 +36,22 @@ python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 
 좀 더 잘 잡아내는 모습
 
+## 추가한 코드
 
-## make_labeling.py
+* make_labeling.py >= CRAFT에서 얻은 region score를 합성을 통해 각 글자의 labeling을 진행
 
-CRAFT에서 얻은 region score를 합성을 통해 각 글자의 labeling을 진행
+* cutting.py >= make_labeling.py를 통해 얻은 값으로 각 글자별로 자름
 
-## cutting.py
+* rename_bin02.py >= 학습을 위한 이진화 이미지로 변경
 
-make_labeling.py를 통해 얻은 값으로 각 글자별로 자름
-
-## rename_bin02.py
-
-학습을 위한 이진화 이미지로 변경
-
-## img_post.py
-
-그외 필요한 작업물들
-
+* img_post.py >= 그외 필요한 작업물들
 
 
 ## 생성한 데이터
 
-
 ![이미지4](/image/9.png)
 
+## Data Link
 
 https://drive.google.com/file/d/19vdIQONJcvCDHPFj2hdZ65R6cnWMHhdd/view?usp=sharing
 
