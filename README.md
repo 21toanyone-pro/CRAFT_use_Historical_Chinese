@@ -13,12 +13,20 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 ## 사용법
 
 ```
+-- 태조
+    -1권
+       - img01.jpg
+       - img02.jpg
+       - ...
+```
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
 
 ```
 python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
 ```
+
+
 
 ## CRAFT만 단독으로 사용하였을 경우 문제점
 ![이미지2](/image/noname02.png)
@@ -36,7 +44,7 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 좀 더 잘 잡아내는 모습
 
-## 추가한 코드
+## New file
 
 * make_labeling.py >= CRAFT에서 얻은 region score를 합성을 통해 각 글자의 labeling을 진행
 
@@ -47,7 +55,7 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 * img_post.py >= 그외 필요한 작업물들
 
 
-## 생성한 데이터
+## Result
 
 ![이미지4](/image/9.png)
 
