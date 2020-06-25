@@ -21,6 +21,8 @@ test 이미지 구성
             - img02.jpg
             - ...
 ```
+
+```
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
 
