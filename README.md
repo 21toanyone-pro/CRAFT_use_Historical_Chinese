@@ -2,8 +2,12 @@
 
 clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기 위해 커스텀 하였으며 원본은 해당 링크[https://github.com/clovaai/CRAFT-pytorch](https://github.com/clovaai/CRAFT-pytorch) 에서 확인 할 수 있다.
 
-## 고문서 이미지
-![이미지1](/image/iaa_d001001b00.jpg)
+
+## 사용법
+
+"""
+python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
+"""
 
 ## CRAFT만 단독으로 사용하였을 경우 문제점
 ![이미지2](/image/noname02.png)
