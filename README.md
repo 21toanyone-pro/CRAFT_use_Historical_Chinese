@@ -13,11 +13,12 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 ## 사용법
 
 ```
--- 태조
-    -1권
-       - img01.jpg
-       - img02.jpg
-       - ...
+-test
+    - 태조
+        -1권
+            - img01.jpg
+            - img02.jpg
+            - ...
 ```
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
