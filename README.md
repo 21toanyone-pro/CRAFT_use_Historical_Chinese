@@ -6,9 +6,9 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 # Getting started
 
 ## Install dependencis
-### PyTorch>=0.4.1
-### torchvision>=0.2.1
-### opencv-python>=3.4.2
+* PyTorch>=0.4.1
+* torchvision>=0.2.1
+* opencv-python>=3.4.2
 
 ## 사용법
 
