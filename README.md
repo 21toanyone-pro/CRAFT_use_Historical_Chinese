@@ -5,9 +5,9 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 
 ## 사용법
 
-"""
+```
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
-"""
+```
 
 ## CRAFT만 단독으로 사용하였을 경우 문제점
 ![이미지2](/image/noname02.png)
