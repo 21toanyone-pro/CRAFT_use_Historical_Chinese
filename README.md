@@ -12,7 +12,8 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 
 ## 사용법
 
-test 이미지 구성
+test 폴더 구성
+
 ```
 -test
     - 태조
@@ -46,7 +47,6 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ## CRAFT와 커스텀한 것의 차이
 ![이미지4](/image/noname05.png)
 
-좀 더 잘 잡아내는 모습
 
 ## New file
 
