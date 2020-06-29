@@ -2,6 +2,7 @@
 
 clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기 위해 커스텀 하였으며 원본은 해당 링크[https://github.com/clovaai/CRAFT-pytorch](https://github.com/clovaai/CRAFT-pytorch) 에서 확인 할 수 있다.
 
+The clovaai craft was customized to better find the letters in the Historical documents, and the original can be found at the link [https://github.com/clovaai/CRAFT-pytorch] (https://github.com/clovaai/CRAFT-pytorch)).
 
 # Getting started
 
@@ -12,9 +13,10 @@ clovaai의 craft를 사용하여 고문서에서 글자를 더 잘 찾게 하기
 * PIL
 * natsort
 
-## 사용법
+## 사용법 Used
 
 test 폴더 구성
+Configure test folder
 
 ```
 -test
@@ -34,19 +36,18 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ```
 
 
-
-## CRAFT만 단독으로 사용하였을 경우 문제점
+## CRAFT만 단독으로 사용하였을 경우 문제점 (Problems with using CRAFT alone)
 ![이미지2](/image/noname02.png)
 ![이미지3](/image/noname03.png)
 
 글자가 일부 잘리거나 합쳐져서 검출
-
+Detect partial clipped or combined characters
 
 ![이미지4](/image/noname04.png)
 
 이미지 합성을 통해 잘리는 부분을 최소화
 
-## CRAFT와 커스텀한 것의 차이
+## CRAFT와 커스텀한 것의 차이(the difference between CRAFT and customized)
 ![이미지4](/image/noname05.png)
 
 
@@ -66,7 +67,7 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ![이미지4](/image/9.png)
 
 ## Data Link
-
+태조실록(Taejo Silok Image Data):
 https://drive.google.com/file/d/19vdIQONJcvCDHPFj2hdZ65R6cnWMHhdd/view?usp=sharing
 
 
