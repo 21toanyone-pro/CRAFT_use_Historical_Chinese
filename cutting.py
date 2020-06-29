@@ -53,8 +53,15 @@ m2 =[]
 
 def cutting_main(img_list):
     file_path = './crop/' #save_crop_img_path
+    if not os.path.isdir(file_path):
+        os.makedirs(file_path)
     img_path = './resize_img/' # load_img_path
+    if not os.path.isdir(img_path):
+        os.makedirs(img_path)
     csv_save_path = './csv_save/'
+    if not os.path.isdir(csv_save_path):
+        os.makedirs(csv_save_path)
+
     bground_list = os.listdir(img_path) #원본 이미지 경로
     txt_list = os.listdir(csv_save_path) #csv 파일 경로
     count = len(bground_list) #이미지 경로 안의 이미지 갯수

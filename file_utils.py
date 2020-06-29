@@ -49,6 +49,8 @@ def saveResult(img_file, img, boxes, dirname='./result/', verticals=None, texts=
         # make result file list
         filename, file_ext = os.path.splitext(os.path.basename(img_file))
         csv_root = './csv/'
+        if not os.path.isdir(csv_root):
+            os.makedirs(csv_root)
         # result directory
         res_file = dirname + "res_" + filename + '.txt'
         res_file_csv = csv_root + filename + '.csv'

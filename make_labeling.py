@@ -26,7 +26,10 @@ def saveLabel():
 
     csv_root = './csv_save/' #라벨링한 CSV 파일을 저장할 경로
     save_path = './save_rec/' #상자 이미지를 저장할 경로
-    
+    if not os.path.isdir(csv_root):
+        os.mkdir(csv_root)
+    if not os.path.isdir(save_path):
+        os.mkdir(save_path)
     kk = 0 # 상자가 표시 된 이미지의 장 수
 
     csv_og= './csv/' # 오리지널 Csv 파일
@@ -72,6 +75,8 @@ def saveLabel():
         re_img = img_re.crop(area) 
         rw, rh = re_img.size
         #crop_re_img = crop_re_img.resize((rw, rh))
+        if not os.path.isdir('./resize_img/'):
+            os.makedirs('./resize_img/')
         re_img.save('./resize_img/' + z[i])
 
 

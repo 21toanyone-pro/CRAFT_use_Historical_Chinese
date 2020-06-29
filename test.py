@@ -130,6 +130,10 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     if args.show_time : print("\ninfer/postproc time : {:.3f}/{:.3f}".format(t0, t1))
     post_folder = './post'
     resize_folder = './resize'
+    if not os.path.isdir(post_folder+'/'):
+        os.makedirs(post_folder +'/')
+    if not os.path.isdir(resize_folder+'/'):
+        os.makedirs(resize_folder +'/')
     #mask_file2 = post_folder + "/score_" + filename + '_mask.jpg' #포인트 이미지
     
     resize_file = resize_folder + "/resize_" + filename + '_mask.jpg' #오리지널 이미지
@@ -151,6 +155,12 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     text_score=Image.fromarray((text_score).astype(np.uint8))
     text_score = np.array(text_score)
     thresh=img_post.img_proc(text_score, thresh)
+
+    if not os.path.isdir('./og_bri'+'/'):
+        os.makedirs('./og_bri' +'/')
+
+    if not os.path.isdir('./score/'):
+        os.makedirs('./score/')
 
     cv2.imwrite('./og_bri' + "/og_" + filename + '.jpg', thresh)
     cv2.imwrite('./score' + "/score_" + filename + '.jpg', text_score)
