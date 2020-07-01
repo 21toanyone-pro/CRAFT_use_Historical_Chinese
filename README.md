@@ -36,20 +36,10 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ```
 
 
-## CRAFT만 단독으로 사용하였을 경우 문제점 (Problems with using CRAFT alone)
-![이미지2](/image/noname02.png)
-![이미지3](/image/noname03.png)
-
-글자가 일부 잘리거나 합쳐져서 검출
-Detect partial clipped or combined characters
-
-![이미지4](/image/noname04.png)
-
-이미지 합성을 통해 잘리는 부분을 최소화
-
 ## CRAFT와 커스텀한 것의 차이(the difference between CRAFT and customized)
 ![이미지4](/image/noname05.png)
 
+#
 
 ## New file
 
@@ -63,7 +53,9 @@ Detect partial clipped or combined characters
 
 
 ## Result
-
+![이미지2](/image/noname02.png)
+![이미지3](/image/noname03.png)
+![이미지4](/image/noname04.png)
 ![이미지4](/image/9.png)
 
 ## Data Link
