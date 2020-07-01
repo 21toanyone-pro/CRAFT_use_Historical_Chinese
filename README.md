@@ -36,10 +36,6 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ```
 
 
-## CRAFT와 커스텀한 것의 차이(the difference between CRAFT and customized)
-![이미지4](/image/noname05.png)
-
-#
 
 ## New file
 
@@ -53,9 +49,9 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 
 ## Result
-![이미지2](/image/noname02.png)
-![이미지3](/image/noname03.png)
-![이미지4](/image/noname04.png)
+
+![이미지4](/image/noname05.png)
+
 ![이미지4](/image/9.png)
 
 ## Data Link
