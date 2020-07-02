@@ -129,11 +129,8 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     filename, file_ext = os.path.splitext(os.path.basename(image_path))
 
     if args.show_time : print("\ninfer/postproc time : {:.3f}/{:.3f}".format(t0, t1))
-    post_folder = './post' # 원본이미지를 이진화한 이미지 저장
     resize_folder = './resize' # resize된 원본 이미지 저장
 
-    if not os.path.isdir(post_folder+'/'):
-        os.makedirs(post_folder +'/')
     if not os.path.isdir(resize_folder+'/'):
         os.makedirs(resize_folder +'/')
     
