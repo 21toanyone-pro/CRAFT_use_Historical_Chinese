@@ -37,8 +37,13 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ## 설명
 
 ![이미지6](/image/그림3.jpg)
+
+### test.py 에 대한 설명
+
+
 ![이미지7](/image/그림2.jpg)
 
+### 각 단계별 코드에 대한 설명
 
 ## New file
 
