@@ -66,6 +66,7 @@ def sort_test(poly):
     return a
 
 
+
 def img_proc(score_img, bl_img):
     kernel_3 = np.ones((3,3),np.uint8)
     kernel_5 = np.ones((5,5),np.uint8)

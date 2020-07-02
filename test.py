@@ -128,52 +128,53 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     filename, file_ext = os.path.splitext(os.path.basename(image_path))
 
     if args.show_time : print("\ninfer/postproc time : {:.3f}/{:.3f}".format(t0, t1))
-    post_folder = './post'
-    resize_folder = './resize'
+    post_folder = './post' # 원본이미지를 이진화한 이미지 저장
+    resize_folder = './resize' # resize된 원본 이미지 저장
+
     if not os.path.isdir(post_folder+'/'):
         os.makedirs(post_folder +'/')
     if not os.path.isdir(resize_folder+'/'):
         os.makedirs(resize_folder +'/')
-    #mask_file2 = post_folder + "/score_" + filename + '_mask.jpg' #포인트 이미지
     
     resize_file = resize_folder + "/resize_" + filename + '_mask.jpg' #오리지널 이미지
 
 
-    
-    #images = np.array(img_resized)
-    IMG_RGB2 = cv2.cvtColor(img_resized, cv2.COLOR_BGR2RGB)
 
-    pil_image=Image.fromarray((IMG_RGB2* 255).astype(np.uint8))
+    IMG_RGB2 = cv2.cvtColor(img_resized, cv2.COLOR_BGR2RGB) #craft에서 resize한 이미지를 RGB로 컨버트
+
+
+    # 합성 이미지를 만들기 위한 부분
+    pil_image=Image.fromarray((IMG_RGB2* 255).astype(np.uint8)) 
     images = np.array(pil_image)
     images = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(images, 0, 255, cv2.THRESH_BINARY+ cv2.THRESH_OTSU)#+ cv2.THRESH_OTSU
-    text_score = cv2.resize(Plus_score_text, None,fx=2, fy=2, interpolation = cv2.INTER_LINEAR)
+    # 이미지 합성을 위해 이진화
 
-    thresh = cv2.resize(thresh, (img_w,img_h))
-    text_score = cv2.resize(text_score, (img_w,img_h))
+    text_score = cv2.resize(Plus_score_text, None,fx=2, fy=2, interpolation = cv2.INTER_LINEAR) # 다시 원본 사이즈로 조절
+
+    #이미지 합성을 위해 두개의 이미지를 같은 사이즈로 조절
+    thresh = cv2.resize(thresh, (img_w,img_h)) # 원본 이진화 이미지
+    text_score = cv2.resize(text_score, (img_w,img_h)) # Region 스코어 이진화 이미지
 
     text_score=Image.fromarray((text_score).astype(np.uint8))
     text_score = np.array(text_score)
-    thresh=img_post.img_proc(text_score, thresh)
 
-    if not os.path.isdir('./og_bri'+'/'):
+    #thresh=img_post.img_proc(text_score, thresh) # 
+
+    if not os.path.isdir('./og_bri'+'/'): # 원본 이진화 이미지 저장 폴더
         os.makedirs('./og_bri' +'/')
-
-    if not os.path.isdir('./score/'):
+    
+    if not os.path.isdir('./score/'): # 스코어 이진화 이미지 저장 폴더
         os.makedirs('./score/')
 
-    cv2.imwrite('./og_bri' + "/og_" + filename + '.jpg', thresh)
-    cv2.imwrite('./score' + "/score_" + filename + '.jpg', text_score)
-    #cv2.imwrite(('./og_bri' + "/OG_" + filename + '.jpg', thresh)
-    # addImg = cv2.add(text_score, thresh)
-    # ret, addImg = cv2.threshold(addImg, 0, 255, cv2.THRESH_BINARY+ cv2.THRESH_OTSU)
+    cv2.imwrite('./og_bri' + "/og_" + filename + '.jpg', thresh) # 원본 이진화 이미지 저장
+    cv2.imwrite('./score' + "/score_" + filename + '.jpg', text_score) # 스코어 이진화 이미지 저장
 
     img_h = thresh.shape[0]
     img_w = thresh.shape[1]
 
-    IMG_RGB2= cv2.resize(IMG_RGB2, (img_w, img_h))
-    cv2.imwrite(resize_file, IMG_RGB2)
-    # cv2.imwrite(post_folder + "/RGB_" + filename + '.jpg', addImg)
+    IMG_RGB2= cv2.resize(IMG_RGB2, (img_w, img_h)) # 다시 원본 사이즈로 resize
+    cv2.imwrite(resize_file, IMG_RGB2) # 합성 이미지
     
     return boxes, polys, ret_score_text
 
