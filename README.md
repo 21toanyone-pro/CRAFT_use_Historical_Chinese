@@ -36,31 +36,37 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 ```
 ## 설명
 
-![이미지6](/image/그림3.jpg)
+### 진행 순서
 
-### test.py 에 대한 설명
-
-
-![이미지7](/image/그림2.jpg)
-
-### 각 단계별 코드에 대한 설명
-
-## New file
-
-* make_labeling.py >= CRAFT에서 얻은 region score를 합성을 통해 각 글자의 labeling을 진행
-
-* cutting.py >= make_labeling.py를 통해 얻은 값으로 각 글자별로 자름
-
-* rename_bin02.py >= 학습을 위한 이진화 이미지로 변경
-
-* img_post.py >= 그외 필요한 작업물들
+![진행 순서](/image/그림4.jpg)
 
 
-## Result
+### Input으로 들어가는 원본 이미지
 
-![이미지4](/image/noname05.png)
+![원본이미지](/image/iaa_d001001b00.jpg)
 
-![이미지4](/image/9.png)
+개별 글자를 검출 할 원본 이미지
+
+### test.py를 통해 생성 되는 합성 이미지
+
+![원본이미지](/image/그림1.png)
+
+CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+
+### make_labeling.py 를 통해 생성되는 데이터
+
+![원본이미지](/image/noname07.png)
+
+노이즈를 제거하기 위해 글자기 있는 부분을 crop 하여 labeling 진행
+
+### cutting.py를 통해 생성되는 데이터
+
+![원본이미지](/image/8.png)
+
+### rename_bin02.py를 통해 생성되는 데이터
+
+![원본이미지](/image/9.png)
+
 
 ## Data Link
 태조실록(Taejo Silok Image Data):
