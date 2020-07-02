@@ -30,6 +30,8 @@ def same_check(arry, og_arry): # 같은 라인인지 체크하고 원래 글자�
                         arry[i][0] = og_arry[j][0]
     return arry
 
+
+# 분류를 위한 왕 코드
 links = ['iaa','iba','ica','ida','idb','idc','idd','ide','iea'
 ,'ifa','iga','iha','iia','ija'
 ,'ika','ila','ima','ina','inb'
@@ -38,6 +40,8 @@ links = ['iaa','iba','ica','ida','idb','idc','idd','ide','iea'
 ,'iua','iva','iwa','ixa','iya'
 ,'iza','izb','izc']
 
+
+## 권 분류를 하기 리스트 생성
 l = []
 for i in range(1, 10):
     s = 'd00'+str(i)
@@ -55,10 +59,10 @@ def cutting_main(img_list):
     file_path = './crop/' #save_crop_img_path
     if not os.path.isdir(file_path):
         os.makedirs(file_path)
-    img_path = './resize_img/' # load_img_path
+    img_path = './resize_img/' # load_img_path 
     if not os.path.isdir(img_path):
         os.makedirs(img_path)
-    csv_save_path = './csv_save/'
+    csv_save_path = './csv_save/' # 좌표가 저장된 csv 파일
     if not os.path.isdir(csv_save_path):
         os.makedirs(csv_save_path)
 
@@ -79,6 +83,7 @@ def cutting_main(img_list):
         x = natsort.natsorted(bground_list)
         y = natsort.natsorted(txt_list)
 
+        #==============파일 이름을 거르기 위한 부분===============#
         str_path = str(x[j])
         str_path = str_path.replace('.jpg', '')
         str_path = str_path.replace('mask', '')
@@ -89,6 +94,7 @@ def cutting_main(img_list):
             str_path = str_path.replace(l[i], '')
         str_path = re.sub('_', ' ', str_path)
         str_path = re.sub(' ', '', str_path)
+        #==============파일 이름을 거르기 위한 부분===============#
 
         img = Image.open(img_path+x[j]) #이미지 오픈 
         
@@ -109,7 +115,7 @@ def cutting_main(img_list):
         for k in range(0,len(C)):
             appendP(C[k])
             real =[int(point[k][0]),int(point[k][1]),int(point[k][2]),int(point[k][3])]
-            real2 =[int(point[k][0]),int(point[k][1]),int(point[k][2]),int(point[k][3])]
+            real2 =[int(point[k][0]),int(point[k][1]),int(point[k][2]),int(point[k][3])] 
             appendMain(real)
             append_OG(real2)
         #====================================================================================#
@@ -121,6 +127,7 @@ def cutting_main(img_list):
         main = sorted(main, key=itemgetter(0), reverse=True)
         main = same_check(main, og_main) #소팅된걸 체크해서 바꿔 줌
         cutting_img_num = 0
+
         #====================================================================================#
         #배열을 커팅 하는 부분
         king_name = "ㅇ"
@@ -153,8 +160,10 @@ def cutting_main(img_list):
             s_name = int(cutting_img_num)
             area =(arry1, arry2, arry3, arry4)
             cropped_img = img.crop(area) # 이미지 크롭
+
             img_save_path = dir_path+'/'+str(s_name) + '.jpg'
-            cropped_img.save(img_save_path)
+
+            cropped_img.save(img_save_path) #이미지 저장
             cutting_img_num = cutting_img_num +1
             get_size = os.path.getsize(img_save_path)
             volume_kb = '%0.2f' % (get_size/1024)
@@ -165,23 +174,8 @@ def cutting_main(img_list):
             m2.append([img_save_path,replaceA, location,a,b,volume_kb+'KB'])
             if not os.path.isdir('./'+ str(img_list[j][0])):
                 os.mkdir('./'+ str(img_list[j][0]) +'/')  
-            df2 = pd.DataFrame(m2, columns=['save_path','filename','Location', 'w','h','Volume(KB)'])
-            df2.to_csv('./'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr')
+            df2 = pd.DataFrame(m2, columns=['save_path','filename','Location', 'w','h','Volume(KB)']) # 저장 경로, 파일 이름, 원본 이미지에서 해당 글자의 위치, 넓이, 높이, 용량
+            df2.to_csv('./'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr') # csv 파일 저장 (왕 별로 저장)
             king_name = str(img_list[j][0])
-
-
-    
-    
-        
-        # king_path = './king_csv/' +str(img_list[j][0])
-        # book_path = './king_csv/' +str(img_list[j][0])+'/'+str(img_list[j][1])+'/'
-        # dir_path = './king_csv/' +str(img_list[j][0])+'/'+str(img_list[j][1])+'/'+str(str_path) # 파일 저장 경로
-        # if not os.path.isdir(king_path):
-        #     os.mkdir(king_path +'/')  
-        # if not os.path.isdir(book_path):
-        #     os.mkdir(book_path +'/')  
-        # if not os.path.isdir(dir_path):
-        #     os.mkdir(dir_path +'/')  
-        # df2.to_csv(dir_path+ '/save_csv.csv',encoding='euc-kr')
 
     

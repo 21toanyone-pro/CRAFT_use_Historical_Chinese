@@ -92,7 +92,8 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     # forward pass
     y, feature = net(x)
     # make score and link map
-    score_text = y[0,:,:,0].cpu().data.numpy() #리전 스코어
+    score_text = y[0,:,:,0].cpu().data.numpy() #리전 스코어 Region score
+
     score_link = y[0,:,:,1].cpu().data.numpy() #어피니티 스코어
     # refine link
     if refine_net is not None:
@@ -104,7 +105,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     
 
     # Post-processing
-    boxes, polys = craft_utils.getDetBoxes(score_text, score_link, text_threshold, link_threshold, 0.4, poly)
+    boxes, polys = craft_utils.getDetBoxes(score_text, score_link, text_threshold, link_threshold, 0.4, poly) # CRAFT에서 박스를 그려주는 부분
     
     
     # # coordinate adjustment #좌표설정
@@ -123,7 +124,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     render_img = score_text.copy()
     
     ret_score_text = imgproc.cvt2HeatmapImg(render_img)
-    Plus_score_text = imgproc.cvMakeScores(render_img)
+    Plus_score_text = imgproc.cvMakeScores(render_img) ##
 
     filename, file_ext = os.path.splitext(os.path.basename(image_path))
 
@@ -152,7 +153,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
 
     text_score = cv2.resize(Plus_score_text, None,fx=2, fy=2, interpolation = cv2.INTER_LINEAR) # 다시 원본 사이즈로 조절
 
-    #이미지 합성을 위해 두개의 이미지를 같은 사이즈로 조절
+    
     thresh = cv2.resize(thresh, (img_w,img_h)) # 원본 이진화 이미지
     text_score = cv2.resize(text_score, (img_w,img_h)) # Region 스코어 이진화 이미지
 
@@ -174,7 +175,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     img_w = thresh.shape[1]
 
     IMG_RGB2= cv2.resize(IMG_RGB2, (img_w, img_h)) # 다시 원본 사이즈로 resize
-    cv2.imwrite(resize_file, IMG_RGB2) # 합성 이미지
+    cv2.imwrite(resize_file, IMG_RGB2)
     
     return boxes, polys, ret_score_text
 
