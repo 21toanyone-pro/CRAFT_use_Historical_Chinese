@@ -35,7 +35,6 @@ python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
 ```
 
-
 ## 설명
 
 ### 진행 순서
@@ -56,8 +55,6 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 * region score를 이미지화 하여 저장, 원본 이미지를 이진화 하여 저장(score, og_bri 폴더)
 
-* region score의 정보를 csv 폴더에 각 페이지 이름별로 csv 파일로 저장(csv 폴더)
-
 ### make_labeling.py 를 통해 생성되는 데이터
 
 ![원본이미지](/image/noname07.png)
@@ -67,10 +64,10 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 * 노이즈를 제거하기 위해 글자기 있는 부분을 crop 하고 crop 된 이미지에서 Connected Component Labeling진행
 
 ```
-def crop_size(poly): #글자 부분인 곳을 자르기 위한 코드
+def crop_size(poly): 
     if len(poly)==0:
         return
-    poly1 = sort_test(poly) # 중간에 비어있는 부분을 보완하기 위한 코드
+    poly1 = sort_test(poly)
     a =poly1[0][0]
     poly2 = sorted(poly, key=itemgetter(1))
     b= poly2[0][1]
@@ -81,7 +78,7 @@ def crop_size(poly): #글자 부분인 곳을 자르기 위한 코드
     area = (a,b,c,d)
     return area
 
-def sort_test(poly): #중간에 비어있는 이미지를 보완하기 위한 코드
+def sort_test(poly):
     a =[]
     poly = sorted(poly, key=itemgetter(1))
     if len(poly) <= 13:
@@ -93,7 +90,6 @@ def sort_test(poly): #중간에 비어있는 이미지를 보완하기 위한 �
     a = sorted(a, key=itemgetter(0))
     return a
 ```
-
 
 * 더 정확한 레이블링을 위해 이진화한 이미지에서 구분선을 제거 하기 위한 코드 
 
@@ -132,9 +128,34 @@ def del_line_H_CV2(height,weight,thresh):# 이진화 한 이미지에서 구분�
     return thresh
 ```
 
-#### 해당 코드
-
 * Connected Component Labeling를 진행하여 얻은 정보를 csv_save폴더에 각 페이지 이름별로 csv 파일로 저장
+```
+nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(addImg,connectivity=8)
+
+if int(rw/15) < cut_w and cut_w != 0:
+    cut_w = cut_w
+    cut_h = cut_h
+else:
+    cut_h = int(rh/18)
+    cut_w = int(rw/15) 
+    
+for i in range(1, nlabels):
+            
+            size = stats[i, cv2.CC_STAT_AREA]
+
+            if size < 300: continue
+            elif size > 20000: continue
+            #일정 사이즈는 넘기고 진행 
+
+            x, y = stats[i, cv2.CC_STAT_LEFT], stats[i, cv2.CC_STAT_TOP]
+            w, h = stats[i, cv2.CC_STAT_WIDTH], stats[i, cv2.CC_STAT_HEIGHT]
+            
+            if h > cut_h: continue
+            if h < int(cut_h/5): continue
+            if w > cut_w: continue
+            if w < int(cut_w/2): continue
+```
+
 
 
 ### cutting.py를 통해 생성되는 데이터
