@@ -15,8 +15,7 @@ The clovaai craft was customized to better find the letters in the Historical do
 
 ## 사용법 Used
 
-test 폴더 구성
-Configure test folder
+*test 폴더 구성(Configure test folder)
 
 ```
 -test
@@ -27,6 +26,8 @@ Configure test folder
             - ...
 ```
 
+* 실행 코드
+
 ```
 python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
@@ -35,9 +36,8 @@ python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
 ```
 
-## 설명
 
-### 진행 순서
+### 코드 진행 과정
 
 ![진행 순서](/image/그림4.jpg)
 
@@ -49,11 +49,12 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 * 개별 글자를 검출 할 원본 이미지
 
 
-### test.py를 통해 생성 되는 합성 이미지
+### test.py를 통해 생성 되는 데이터
 
 ![원본이미지](/image/그림1.png)
 
 * region score를 이미지화 하여 저장, 원본 이미지를 이진화 하여 저장(score, og_bri 폴더)
+
 
 ### make_labeling.py 를 통해 생성되는 데이터
 
