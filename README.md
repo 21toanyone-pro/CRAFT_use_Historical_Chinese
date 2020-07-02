@@ -54,18 +54,27 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 ![원본이미지](/image/그림1.png)
 
-* CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+* region score를 이미지화 하여 저장, 원본 이미지를 이진화 하여 저장(score, og_bri 폴더)
 
-* region score의 정보를 csv 폴더에 각 페이지 이름별로 csv 파일로 저장
+* region score의 정보를 csv 폴더에 각 페이지 이름별로 csv 파일로 저장(csv 폴더)
 
 ### make_labeling.py 를 통해 생성되는 데이터
 
 ![원본이미지](/image/noname07.png)
 
+* CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+
 * 노이즈를 제거하기 위해 글자기 있는 부분을 crop 하고 crop 된 이미지에서 Connected Component Labeling진행
 
-* Connected Component Labeling를 진행하여 얻은 정보를 csv_save폴더에 각 페이지 이름별로 csv 파일로 저장
+![crop코드](/image/전체crop.PNG)
 
+* 더 정확한 레이블링을 위해 이진화한 이미지에서 구분선을 제거 하기 위한 코드 
+
+![crop코드](/image/선.PNG)
+
+#### 해당 코드
+
+* Connected Component Labeling를 진행하여 얻은 정보를 csv_save폴더에 각 페이지 이름별로 csv 파일로 저장
 
 
 ### cutting.py를 통해 생성되는 데이터
