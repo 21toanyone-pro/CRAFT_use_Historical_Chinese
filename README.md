@@ -34,6 +34,8 @@ python test.py --trained_model=craft_mlt_25k.pth --test_folder=.\test
 ```
 python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
 ```
+
+
 ## 설명
 
 ### 진행 순서
