@@ -45,27 +45,42 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 ![원본이미지](/image/iaa_d001001b00.jpg)
 
-개별 글자를 검출 할 원본 이미지
+* 개별 글자를 검출 할 원본 이미지
+
 
 ### test.py를 통해 생성 되는 합성 이미지
 
 ![원본이미지](/image/그림1.png)
 
-CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+* CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+
+* region score의 정보를 csv 폴더에 각 페이지 이름별로 csv 파일로 저장
 
 ### make_labeling.py 를 통해 생성되는 데이터
 
 ![원본이미지](/image/noname07.png)
 
-노이즈를 제거하기 위해 글자기 있는 부분을 crop 하여 labeling 진행
+* 노이즈를 제거하기 위해 글자기 있는 부분을 crop 하고 crop 된 이미지에서 Connected Component Labeling진행
+
+* Connected Component Labeling를 진행하여 얻은 정보를 csv_save폴더에 각 페이지 이름별로 csv 파일로 저장
+
+
 
 ### cutting.py를 통해 생성되는 데이터
 
 ![원본이미지](/image/8.png)
 
+* 원본 이미지에서 crop된 개별 문자 이미지 데이터
+
+![생성 되는 csv 파일](/image/저장1.jpg)
+
+* crop한 개별 문자 이미지 데이터에 대한 정보
+
 ### rename_bin02.py를 통해 생성되는 데이터
 
 ![원본이미지](/image/9.png)
+
+* 학습을 하기 위해 crop한 개별 문자 이미지 데이터를 이진화하여 저장
 
 
 ## Data Link
