@@ -155,7 +155,7 @@ for i in range(1, nlabels):
             if w > cut_w: continue
             if w < int(cut_w/2): continue
 ```
-
+레이블링 된 글자 중 너무 크거나 너무 작은 글자는 제외하고 레이블링
 
 
 ### cutting.py를 통해 생성되는 데이터
