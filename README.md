@@ -51,16 +51,20 @@ python test.py --trained_model=[weightfile] --test_folder=[folder path to test i
 
 ### test.py를 통해 생성 되는 데이터
 
-![원본이미지](/image/그림1.png)
+![원본이미지](/image/스코어.jpg)
+![원본이미지](/image/원본.jpg)
 
 * region score를 이미지화 하여 저장, 원본 이미지를 이진화 하여 저장(score, og_bri 폴더)
 
 
 ### make_labeling.py 를 통해 생성되는 데이터
 
-![원본이미지](/image/noname07.png)
+![원본이미지](/image/그림1.png)
 
 * CRAFT를 통해 생성된 Region Score를 이진화 한 이미지와 원본을 이진화 한 이미지를 합성하여 합성 이미지를 생성
+
+![원본이미지](/image/noname07.png)
+
 
 * 노이즈를 제거하기 위해 글자기 있는 부분을 crop 하고 crop 된 이미지에서 Connected Component Labeling진행
 
