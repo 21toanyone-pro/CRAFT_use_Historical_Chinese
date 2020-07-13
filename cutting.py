@@ -11,7 +11,6 @@ import csv
 import pandas as pd
 import natsort
 from operator import itemgetter
-import rename_bin
 
 
 def sorting_arry(arry):
@@ -52,13 +51,13 @@ for w in range(100, 300):
 m2 =[]
 
 def cutting_main(img_list):
-    file_path = './crop/' #save_crop_img_path
+    file_path = './output/crop/' #save_crop_img_path
     if not os.path.isdir(file_path):
         os.makedirs(file_path)
-    img_path = './resize_img/' # load_img_path
+    img_path = './output/resize_img/' # load_img_path
     if not os.path.isdir(img_path):
         os.makedirs(img_path)
-    csv_save_path = './csv_save/'
+    csv_save_path = './output/csv_save/'
     if not os.path.isdir(csv_save_path):
         os.makedirs(csv_save_path)
 
@@ -163,10 +162,10 @@ def cutting_main(img_list):
                 m2 =[]
             
             m2.append([img_save_path,replaceA, location,a,b,volume_kb+'KB'])
-            if not os.path.isdir('./'+ str(img_list[j][0])):
-                os.mkdir('./'+ str(img_list[j][0]) +'/')  
+            if not os.path.isdir('./output/'+ str(img_list[j][0])):
+                os.mkdir('./output/'+ str(img_list[j][0]) +'/')  
             df2 = pd.DataFrame(m2, columns=['save_path','filename','Location', 'w','h','Volume(KB)'])
-            df2.to_csv('./'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr')
+            df2.to_csv('./output/'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr')
             king_name = str(img_list[j][0])
 
 

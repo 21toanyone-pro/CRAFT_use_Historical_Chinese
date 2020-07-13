@@ -33,7 +33,7 @@ def list_files(in_path):
     # gt_files.sort()
     return img_files, mask_files, gt_files
 
-def saveResult(img_file, img, boxes, dirname='./result/', verticals=None, texts=None):
+def saveResult(img_file, img, boxes, dirname='./output/result/', verticals=None, texts=None):
         """ save text detection result one by one
         Args:
             img_file (str): image file name
@@ -48,7 +48,7 @@ def saveResult(img_file, img, boxes, dirname='./result/', verticals=None, texts=
 
         # make result file list
         filename, file_ext = os.path.splitext(os.path.basename(img_file))
-        csv_root = './csv/'
+        csv_root = './output/csv/'
         if not os.path.isdir(csv_root):
             os.makedirs(csv_root)
         # result directory

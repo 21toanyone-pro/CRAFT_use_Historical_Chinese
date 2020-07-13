@@ -10,7 +10,7 @@ from PIL import ImageFont
 import shutil
 
 def rename():
-    bground_path = './crop/'
+    bground_path = './output/crop/'
     bground_list = os.listdir(bground_path)
 
     all_path = []
@@ -30,10 +30,10 @@ def rename():
                 img_list = natsort.natsorted(img_list)
                 for q in img_list:
                     real_path = bground_path + str(i) + '/' + str(j) +'/' + str(k) +'/' + str(q)
-                    save_path = './bri/' + str(i) + '/' + str(j) +'/' + str(k) +'/' + str(q)
+                    save_path = './output/bri/' + str(i) + '/' + str(j) +'/' + str(k) +'/' + str(q)
 
-                    if not os.path.isdir('./bri/' + str(i) + '/' + str(j) +'/' + str(k)):
-                        os.makedirs('./bri/' + str(i) + '/' + str(j) +'/' + str(k) +'/')
+                    if not os.path.isdir('./output/bri/' + str(i) + '/' + str(j) +'/' + str(k)):
+                        os.makedirs('./output/bri/' + str(i) + '/' + str(j) +'/' + str(k) +'/')
                     gray_img = Image.open(real_path)
                     gray_img.resize((130,130))
                     w, h = gray_img.size

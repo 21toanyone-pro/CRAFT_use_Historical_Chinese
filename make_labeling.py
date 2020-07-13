@@ -6,7 +6,6 @@ import imgproc
 import csv
 import natsort
 import cutting
-import rename_bin
 from PIL import Image, ImageFilter
 from PIL import ImageFont 
 from PIL import ImageDraw 
@@ -15,24 +14,24 @@ from operator import itemgetter
 
 
 def saveLabel():
-    path = './score/'
+    path = './output/score/'
     path_list = os.listdir(path)
     count = len(path_list)
-    resize_path = './og_bri/'
+    resize_path = './output/og_bri/'
     resize_list = os.listdir(resize_path)
 
-    res_path = './resize/'
+    res_path = './output/resize/'
     re_list = os.listdir(res_path)
 
-    csv_root = './csv_save/' #라벨링한 CSV 파일을 저장할 경로
-    save_path = './save_rec/' #상자 이미지를 저장할 경로
+    csv_root = './output/csv_save/' #라벨링한 CSV 파일을 저장할 경로
+    save_path = './output/save_rec/' #상자 이미지를 저장할 경로
     if not os.path.isdir(csv_root):
         os.mkdir(csv_root)
     if not os.path.isdir(save_path):
         os.mkdir(save_path)
     kk = 0 # 상자가 표시 된 이미지의 장 수
 
-    csv_og= './csv/' # 오리지널 Csv 파일
+    csv_og= './output/csv/' # 오리지널 Csv 파일
     txt_list = os.listdir(csv_og) #csv 파일 경로
     cut_h = 0
     cut_w = 0
@@ -69,9 +68,9 @@ def saveLabel():
         #craft에서 나온 region스코어의ㅏ 위치를 읽어온다.
         #=========================================================================#
 
-        img_score = Image.open('./score/'+x[i]) # 스코어 이진화 이미지
-        img_og = Image.open('./og_bri/'+y[i]) # 원본 이진화 이미지
-        img_re = Image.open('./resize/'+z[i]) # 원본 이미지
+        img_score = Image.open('./output/score/'+x[i]) # 스코어 이진화 이미지
+        img_og = Image.open('./output/og_bri/'+y[i]) # 원본 이진화 이미지
+        img_re = Image.open('./output/resize/'+z[i]) # 원본 이미지
 
         # 원본 이미지도 크기에 맞게 자르기
         re_img = img_re.crop(area)  
@@ -80,9 +79,9 @@ def saveLabel():
         rw, rh = re_img.size #자른 이미지의 크기 저장
         #crop_re_img = crop_re_img.resize((rw, rh))
 
-        if not os.path.isdir('./resize_img/'):
-            os.makedirs('./resize_img/')
-        re_img.save('./resize_img/' + z[i])
+        if not os.path.isdir('./output/resize_img/'):
+            os.makedirs('./output/resize_img/')
+        re_img.save('./output/resize_img/' + z[i])
         # 원본 이미지에서 글자가 있는 부분이 corp 된 이미지 저장
 
 
@@ -100,15 +99,15 @@ def saveLabel():
 
         # 이미지 합성
         addImg = cv2.add(crop_score_img, crop_re_img) # 원본 이미지와 스코어 이미지 합성
-        cv2.imwrite('./post2/save_'+str(kk)+'.jpg', addImg) # 합성 이미지 저장 
+        cv2.imwrite('./output/post2/save_'+str(kk)+'.jpg', addImg) # 합성 이미지 저장 
 
         # 라벨링 한 이미지 상자 그려줄 이미지 로드
-        crop_re_img = cv2.imread('./resize_img/'+z[i], cv2.IMREAD_COLOR)
+        crop_re_img = cv2.imread('./output/resize_img/'+z[i], cv2.IMREAD_COLOR)
 
         # 커넥티드 컴포넌트 라벨링 진행
         nlabels, labels, stats, centroids = cv2.connectedComponentsWithStats(addImg,connectivity=8)
 
-        csv_list = os.listdir('./csv/')
+        csv_list = os.listdir('./output/csv/')
         c = natsort.natsorted(csv_list)
 
         res_file_csv = csv_root + c[i]

@@ -30,7 +30,6 @@ import natsort
 
 import make_labeling
 import cutting
-import rename_bin
 import rename_bin02
 import img_post
 
@@ -71,7 +70,7 @@ args = parser.parse_args()
 """ For test images in a folder """
 image_list, _, _ = file_utils.get_files(args.test_folder)
 image_list = natsort.natsorted(image_list)
-result_folder = './result/'
+result_folder = './output/result/'
 if not os.path.isdir(result_folder):
     os.mkdir(result_folder)
 
@@ -128,8 +127,8 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     filename, file_ext = os.path.splitext(os.path.basename(image_path))
 
     if args.show_time : print("\ninfer/postproc time : {:.3f}/{:.3f}".format(t0, t1))
-    post_folder = './post' # 원본이미지를 이진화한 이미지 저장
-    resize_folder = './resize' # resize된 원본 이미지 저장
+    post_folder = './output/post' # 원본이미지를 이진화한 이미지 저장
+    resize_folder = './output/resize' # resize된 원본 이미지 저장
 
     if not os.path.isdir(post_folder+'/'):
         os.makedirs(post_folder +'/')
@@ -159,16 +158,15 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, i
     text_score=Image.fromarray((text_score).astype(np.uint8))
     text_score = np.array(text_score)
 
-    #thresh=img_post.img_proc(text_score, thresh) # 
 
-    if not os.path.isdir('./og_bri'+'/'): # 원본 이진화 이미지 저장 폴더
-        os.makedirs('./og_bri' +'/')
+    if not os.path.isdir('./output/og_bri'+'/'): # 원본 이진화 이미지 저장 폴더
+        os.makedirs('./output/og_bri' +'/')
     
-    if not os.path.isdir('./score/'): # 스코어 이진화 이미지 저장 폴더
-        os.makedirs('./score/')
+    if not os.path.isdir('./output/score/'): # 스코어 이진화 이미지 저장 폴더
+        os.makedirs('./output/score/')
 
-    cv2.imwrite('./og_bri' + "/og_" + filename + '.jpg', thresh) # 원본 이진화 이미지 저장
-    cv2.imwrite('./score' + "/score_" + filename + '.jpg', text_score) # 스코어 이진화 이미지 저장
+    cv2.imwrite('./output/og_bri' + "/og_" + filename + '.jpg', thresh) # 원본 이진화 이미지 저장
+    cv2.imwrite('./output/score' + "/score_" + filename + '.jpg', text_score) # 스코어 이진화 이미지 저장
 
     img_h = thresh.shape[0]
     img_w = thresh.shape[1]
