@@ -58,17 +58,12 @@ def cutting_main(img_list):
     file_path = './output/crop/' #save_crop_img_path
     if not os.path.isdir(file_path):
         os.makedirs(file_path)
-<<<<<<< HEAD
+
     img_path = './output/resize_img/' # load_img_path
     if not os.path.isdir(img_path):
         os.makedirs(img_path)
     csv_save_path = './output/csv_save/'
-=======
-    img_path = './resize_img/' # load_img_path 
-    if not os.path.isdir(img_path):
-        os.makedirs(img_path)
-    csv_save_path = './csv_save/' # 좌표가 저장된 csv 파일
->>>>>>> d628e6fc57b8d06aef8d610e707e7f7d47bf81c3
+
     if not os.path.isdir(csv_save_path):
         os.makedirs(csv_save_path)
 
@@ -178,17 +173,12 @@ def cutting_main(img_list):
                 m2 =[]
             
             m2.append([img_save_path,replaceA, location,a,b,volume_kb+'KB'])
-<<<<<<< HEAD
+
             if not os.path.isdir('./output/'+ str(img_list[j][0])):
                 os.mkdir('./output/'+ str(img_list[j][0]) +'/')  
             df2 = pd.DataFrame(m2, columns=['save_path','filename','Location', 'w','h','Volume(KB)'])
             df2.to_csv('./output/'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr')
-=======
-            if not os.path.isdir('./'+ str(img_list[j][0])):
-                os.mkdir('./'+ str(img_list[j][0]) +'/')  
-            df2 = pd.DataFrame(m2, columns=['save_path','filename','Location', 'w','h','Volume(KB)']) # 저장 경로, 파일 이름, 원본 이미지에서 해당 글자의 위치, 넓이, 높이, 용량
-            df2.to_csv('./'+ str(img_list[j][0]) +'/'+str(img_list[j][0]) +'_data.csv',encoding='euc-kr') # csv 파일 저장 (왕 별로 저장)
->>>>>>> d628e6fc57b8d06aef8d610e707e7f7d47bf81c3
+
             king_name = str(img_list[j][0])
 
     
