@@ -223,7 +223,7 @@ if __name__ == '__main__':
         str_path = str_path.replace('test', '')
         str_path = re.sub('[\\\‘|\(\)\[\]\<\>`\'….》]', ' ', str_path)
         str_path = str_path.split()
-        img_path_list.append(str_path)
+        img_path_list.append(str_path) # img_path_list는 ex) ./test/세종/1권/iaa001a.jpg -> [test, 세종, 1권, iaa001a]
         image = imgproc.loadImage(image_path)
         bboxes, polys, score_text = test_net(net, image, args.text_threshold, args.link_threshold, args.low_text, args.cuda, args.poly, image_path, refine_net)
         # save score text
