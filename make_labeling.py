@@ -29,7 +29,9 @@ def saveLabel():
         os.mkdir(csv_root)
     if not os.path.isdir(save_path):
         os.mkdir(save_path)
-    kk = 0 # 상자가 표시 된 이미지의 장 수
+
+
+    page_num = 0 # 상자가 표시 된 이미지의 장 수
 
     csv_og= './output/csv/' # 오리지널 Csv 파일
     txt_list = os.listdir(csv_og) #csv 파일 경로
@@ -52,6 +54,7 @@ def saveLabel():
         csv_f = open(csv_og+csv_srot[i], 'r', encoding='UTF8')
         line_c = csv.reader(csv_f)
 
+        # csv의 한줄의 데이터를 리스트c에 저장
         append_C = C.append
         for lines in line_c:
             append_C(lines)
@@ -74,7 +77,6 @@ def saveLabel():
 
         # 원본 이미지도 크기에 맞게 자르기
         re_img = img_re.crop(area)  
-
 
         rw, rh = re_img.size #자른 이미지의 크기 저장
         #crop_re_img = crop_re_img.resize((rw, rh))
@@ -99,7 +101,7 @@ def saveLabel():
 
         # 이미지 합성
         addImg = cv2.add(crop_score_img, crop_re_img) # 원본 이미지와 스코어 이미지 합성
-        cv2.imwrite('./output/post2/save_'+str(kk)+'.jpg', addImg) # 합성 이미지 저장 
+        cv2.imwrite('./output/post2/save_'+str(page_num)+'.jpg', addImg) # 합성 이미지 저장 
 
         # 라벨링 한 이미지 상자 그려줄 이미지 로드
         crop_re_img = cv2.imread('./output/resize_img/'+z[i], cv2.IMREAD_COLOR)
@@ -115,8 +117,7 @@ def saveLabel():
         
         csvwriter = csv.writer(csvfile)
 
-        
-        ss =0
+        # 레이블링 박스의 크기 판별 
 
         if int(rw/15) < cut_w and cut_w != 0:
             cut_w = cut_w
@@ -125,7 +126,7 @@ def saveLabel():
             cut_h = int(rh/18)
             cut_w = int(rw/15) 
 
-        # CCL한 것 중 일정 크기의 이미지만 레이블을 지정 하여 번호 부여 
+        # 레이블링한 것 중 일정 크기의 이미지만 지정 하여 번호 부여 
         for i in range(1, nlabels):
             
             size = stats[i, cv2.CC_STAT_AREA]
@@ -143,14 +144,12 @@ def saveLabel():
             if w < int(cut_w/2): continue
 
             crop_re_img = cv2.rectangle(crop_re_img, (x, y), (x + w, y + h),(0, 0, 255), 1)
-            k = x, y, x+w, y+h
+            k = x, y, x+w, y+h #상자 좌표를 csv파일에 저장
             
-
             csvwriter.writerow(k) # 각 글자의 좌측상단 우측하단의 좌표값을 저장 
-            cv2.putText(crop_re_img, str(ss), (x, y), cv2.FONT_ITALIC, 0.2, (0,0,255), 1) 
             
         
-        cv2.imwrite(save_path+'save_'+str(kk)+'.jpg', crop_re_img) #박스가 쳐진 이미지를 저장
-        print(save_path+'save_'+str(kk)+'.jpg')
-        kk =kk+1
+        cv2.imwrite(save_path+'save_'+str(page_num)+'.jpg', crop_re_img) #박스가 쳐진 이미지를 저장
+        print(save_path+'save_'+str(page_num)+'.jpg')
+        page_num =page_num+1
     

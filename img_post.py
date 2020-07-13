@@ -15,7 +15,6 @@ import file_utils
 import json
 import zipfile
 
-
 import glob
 import re
 import csv
@@ -23,7 +22,7 @@ import pandas as pd
 import natsort
 from operator import itemgetter
 
-def crop_size(poly): #글자 부분인 곳을 자르기 위한 코드
+def crop_size(poly): #글자 부분인 곳을 자르기 위해 sort하여 범위를 파악
     if len(poly)==0:
         return
     poly1 = sort_test(poly) # 중간에 비어있는 부분을 보완하기 위한 코드
@@ -49,32 +48,7 @@ def sort_test(poly): #중간에 비어있는 이미지를 보완하기 위한 �
     a = sorted(a, key=itemgetter(0))
     return a
 
-
-def add_img(score_img, bl_img): # 이미지 합성
-    addImg = cv2.add(score_img, bl_img)
-    #addImg = cv2.resize(addImg, (1664, 2560))
-    return addImg
-
-def del_line_H_CV3(height,weight,thresh): # 이진화 한 이미지에서 구분선을 지우기 위한 코드
-    BW_CHECK = 0
-    for W in range(weight-1):
-        BW_CHECK = 0
-        for H in range(height-1):
-            px = thresh[H, W]
-            px_1 = thresh[H+1, W]
-            if px>0 and px_1>0:
-                BW_CHECK =BW_CHECK + 1
-                if BW_CHECK >=230:
-                    thresh[0:height,W] = 0
-                    thresh[0:height,W-1] = 0
-                    thresh[0:height,W-2] = 0
-                    thresh[0:height,W+1] = 0
-                    break
-            elif px > 0 and px_1 ==0:
-                BW_CHECK = 0
-    return thresh
-    
-def del_line_H_CV2(height,weight,thresh):# 이진화 한 이미지에서 구분선을 지우기 위한 코드
+def del_line_H_CV2(height,weight,thresh):# 이진화 한 고문서 이미지에서 선을 지우기 위한 코드
     BW_CHECK = 0
 
     for H in range(height-1):

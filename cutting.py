@@ -20,7 +20,7 @@ def sorting_arry(arry):
         if abs(int(arry[i][0]) - int(arry[i+1][0])) < 30: #x와 x+1을 뺐을때 35보다 작으면 같은 라인에 있는 거니까 
             arry[i+1][0] = int(arry[i][0])
 
-def same_check(arry, og_arry): # 같은 라인인지 체크하고 원래 글자로 수정해줌
+def same_check(arry, og_arry): # 같은 라인인지 체크하고 원래 수치로 수정해줌
     for i in range(0,len(arry)):
         for j in range(0,len(arry)):
             if arry[i][1] == og_arry[j][1]:

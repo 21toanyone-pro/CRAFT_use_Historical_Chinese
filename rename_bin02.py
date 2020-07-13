@@ -2,7 +2,7 @@ import numpy as np
 import os
 import glob
 import random
-import cv2 as cv
+import cv2
 import natsort
 from PIL import Image
 from PIL import ImageDraw
@@ -13,8 +13,6 @@ def rename():
     bground_path = './output/crop/'
     bground_list = os.listdir(bground_path)
 
-    all_path = []
-    bri_path =[]
     for i in bground_list:
         
         king_path = bground_path + str(i) +'/'
@@ -34,14 +32,15 @@ def rename():
 
                     if not os.path.isdir('./output/bri/' + str(i) + '/' + str(j) +'/' + str(k)):
                         os.makedirs('./output/bri/' + str(i) + '/' + str(j) +'/' + str(k) +'/')
+
                     gray_img = Image.open(real_path)
                     gray_img.resize((130,130))
                     w, h = gray_img.size
                     x = (78-int(w/2))
                     y = (78-int(h/2))
                     images = np.array(gray_img)
-                    gray = cv.cvtColor(images, cv.COLOR_BGR2GRAY)
-                    ret, thresh = cv.threshold(gray, 0, 255, cv.THRESH_BINARY+ cv.THRESH_OTSU)
+                    gray = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
+                    ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY+ cv2.THRESH_OTSU)
                     pil_image=Image.fromarray(thresh)
 
                     example_img = Image.new("L", (156, 156),255)
