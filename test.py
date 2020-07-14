@@ -60,7 +60,7 @@ parser.add_argument('--canvas_size', default=1280, type=int, help='image size fo
 parser.add_argument('--mag_ratio', default=1, type=float, help='image magnification ratio')
 parser.add_argument('--poly', default=False, action='store_true', help='enable polygon type')
 parser.add_argument('--show_time', default=False, action='store_true', help='show processing time')
-parser.add_argument('--test_folder', default='/data/', type=str, help='folder path to input images')
+parser.add_argument('--test_folder', default='./test/', type=str, help='folder path to input images')
 parser.add_argument('--refine', default=False, action='store_true', help='enable link refiner')
 parser.add_argument('--refiner_model', default='weights/craft_refiner_CTW1500.pth', type=str, help='pretrained refiner model')
 
@@ -72,7 +72,7 @@ image_list, _, _ = file_utils.get_files(args.test_folder)
 image_list = natsort.natsorted(image_list)
 result_folder = './output/result/'
 if not os.path.isdir(result_folder):
-    os.mkdir(result_folder)
+    os.makedirs(result_folder)
 
 def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, image_path, refine_net=None):
     t0 = time.time()
@@ -216,13 +216,20 @@ if __name__ == '__main__':
     append_img_list = img_path_list.append
     # load data
     for k, image_path in enumerate(image_list):
-        print("Test image {:d}/{:d}: {:s}".format(k+1, len(image_list), image_path), end='\r')
+        print("Test image {:d}/{:d}: {:s}".format(k+1, len(image_list), image_path), end='\n')
         
-        str_path = str(image_path)
-        str_path = str_path.replace('.jpg', '')
-        str_path = str_path.replace('test', '')
-        str_path = re.sub('[\\\‘|\(\)\[\]\<\>`\'….》]', ' ', str_path)
-        str_path = str_path.split()
+        # str_path = str(image_path)
+        # str_path = str_path.replace('.jpg', '')
+        # str_path = str_path.replace('test', '')
+        # str_path = re.sub('[\\\‘|\(\)\[\]\<\>`\'….》]', ' ', str_path)
+        # str_path = str_path.split()
+        
+        from pathlib import Path 
+        image_path = Path(image_path).as_posix()
+        s = image_path[:-4].split('/')
+        str_path = s[-3:]
+        print('str_path:', str_path)
+
         img_path_list.append(str_path) # img_path_list는 ex) ./test/세종/1권/iaa001a.jpg -> [test, 세종, 1권, iaa001a]
         image = imgproc.loadImage(image_path)
         bboxes, polys, score_text = test_net(net, image, args.text_threshold, args.link_threshold, args.low_text, args.cuda, args.poly, image_path, refine_net)
@@ -233,13 +240,10 @@ if __name__ == '__main__':
         file_utils.saveResult(image_path, image[:,:,::-1], polys, dirname=result_folder)
     
     print("Labeling...")
-    sleep(3)    
     make_labeling.saveLabel() #라벨링 한 것들을 정리 해서 다시 저장
     print("Cropping...")
-    sleep(3)
     cutting.cutting_main(img_path_list)
     print("BR...")
-    sleep(3)
     rename_bin02.rename()
 
     print("elapsed time : {}s".format(time.time() - t))

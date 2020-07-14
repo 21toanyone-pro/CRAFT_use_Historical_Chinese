@@ -11,12 +11,27 @@ from PIL import ImageFont
 from PIL import ImageDraw 
 import img_post
 from operator import itemgetter
+from pathlib import Path 
 
+def make_dirs():
+    output_dirnames = [ 'score', 'og_bri', 'resize', 'csv_save', 'save_rec', 'csv']
+    
+    outpath = Path('./output')
+
+    if not os.path.exists(outpath):
+        os.makedirs(outpath)
+
+    for odir in output_dirnames:
+        dname = outpath / odir 
+        os.makedirs(dname, exist_ok=True) 
 
 def saveLabel():
+    make_dirs()
+
     path = './output/score/'
     path_list = os.listdir(path)
     count = len(path_list)
+
     resize_path = './output/og_bri/'
     resize_list = os.listdir(resize_path)
 
